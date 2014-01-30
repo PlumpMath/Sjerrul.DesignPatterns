@@ -16,18 +16,35 @@ namespace Sjerrul.DesignPatterns.ChainOfResponsibility
         const int InitialHeight = 768;
 
         IList<House> houses = new List<House>();
-        Salesman salesMan = new Salesman();
+        IList<Salesman> salesmen = new List<Salesman>();
+
+        private Random random = new Random();
 
 		public Program()
 			: base(800, 600, GraphicsMode.Default, "Hello OpenTK")
 		{
             for (int i = 0; i < 10; i++)
             {
-                House house = new House(50*i, 50*i);
-                houses.Add(house);
+                for (int j = 0; j < 10; j++)
+                {
+                    House house = new House(i , j, 5 + random.Next(3));
+                    houses.Add(house);
+                }
+                
             }
-            
-       
+
+            Salesman salesman = new Salesman();
+            salesman.SetTarget(GetNextHouse());
+            salesmen.Add(salesman);
+
+            for (int i = 0; i < 5; i++)
+            {
+                Salesman next = new Salesman();
+                next.SetTarget(GetNextHouse());
+                salesmen.Last().nextSalesman = next;
+                salesmen.Add(next);
+            }
+    
 			Keyboard.KeyDown += new EventHandler<KeyboardKeyEventArgs>(Keyboard_KeyDown);
 		}
 
@@ -36,7 +53,10 @@ namespace Sjerrul.DesignPatterns.ChainOfResponsibility
 			if (e.Key == Key.Escape)
 				Exit();
             if (e.Key == Key.Enter)
-                salesMan.Target = houses.Last();
+            {
+
+            }
+                //salesMan.Target = houses.Last();
             
 		}
 
@@ -57,14 +77,21 @@ namespace Sjerrul.DesignPatterns.ChainOfResponsibility
 
 		protected override void OnUpdateFrame(FrameEventArgs e)
 		{
-            double elapsedTime = e.Time;
-
             foreach (House house in houses)
             {
-                house.Angle += 5;
+                house.Update(e.Time);
             }
 
-            salesMan.Update(e.Time);
+            foreach (Salesman salesman in salesmen)
+            {
+                salesman.Update(e.Time);
+                if (salesman.Target.VisitTime <= 0)
+                {
+                    salesman.Selling = false;
+                    salesman.Target.BeingVisisted = false;
+                    salesman.SetTarget(GetNextHouse());
+                }
+            }
 		}
 
 		protected override void OnResize(EventArgs e)
@@ -91,7 +118,11 @@ namespace Sjerrul.DesignPatterns.ChainOfResponsibility
                 house.Draw();
             }
 
-            salesMan.Draw();
+            foreach (Salesman salesman in salesmen)
+            {
+                salesman.Draw();
+            }
+            
 
             SwapBuffers();
 		}
@@ -107,7 +138,10 @@ namespace Sjerrul.DesignPatterns.ChainOfResponsibility
 			}
 		}
 
-		
+        private House GetNextHouse()
+        {
+            return this.houses.FirstOrDefault(x => x.BeingVisisted == false && x.VisitTime > 0);
+        }
 	}
 }
 

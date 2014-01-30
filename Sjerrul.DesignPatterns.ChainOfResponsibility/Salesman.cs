@@ -10,9 +10,15 @@ namespace Sjerrul.OpenTk.Cube
 {
     class Salesman
     {
+        private static int _size = 5;
+        private static int _speed = 1;
+
         public int X { get; set; }
         public int Y { get; set; }
         public House Target { get; set; }
+        public Salesman nextSalesman { get; set; }
+
+        public bool Selling { get; set; }
 
         public Salesman()
         {
@@ -22,26 +28,41 @@ namespace Sjerrul.OpenTk.Cube
 
         public void Update(double elapsedTime)
         {
-            if (Target != null)
+            if (Target != null && this.Selling == false)
             {
-                if (X < Target.X)
+                if (X != Target.X)
                 {
-                    X++;
-                }
-                else
-                {
-                    X--;
+                    if (X < Target.X)
+                    {
+                        X += _speed;
+                    }
+                    else
+                    {
+                        X -= _speed;
+                    }  
                 }
 
-                if (Y < Target.Y)
+                if (Y != Target.Y)
                 {
-                    Y++;
+                    if (Y < Target.Y)
+                    {
+                        Y += _speed;
+                    }
+                    else
+                    {
+                        Y -= _speed;
+                    }
                 }
-                else
+
+                if (Target.X == this.X && Target.Y == this.Y)
                 {
-                   Y--;
+                    this.Selling = true;
                 }
             }
+
+            
+
+           
         }
 
         public void Draw()
@@ -53,10 +74,10 @@ namespace Sjerrul.OpenTk.Cube
                 GL.Color4(Color.Blue);
                 GL.Begin(PrimitiveType.Quads);
                 {
-                    GL.Vertex2(-10, -10);
-                    GL.Vertex2(10, -10);
-                    GL.Vertex2(10, 10);
-                    GL.Vertex2(-10, 10);
+                    GL.Vertex2(-_size, -_size);
+                    GL.Vertex2(_size, -_size);
+                    GL.Vertex2(_size, _size);
+                    GL.Vertex2(-_size, _size);
                 }
                 GL.End();
             }
@@ -68,14 +89,20 @@ namespace Sjerrul.OpenTk.Cube
                 GL.Color4(Color.Black);
                 GL.Begin(PrimitiveType.LineLoop);
                 {
-                    GL.Vertex2(-10, -10);
-                    GL.Vertex2(10, -10);
-                    GL.Vertex2(10, 10);
-                    GL.Vertex2(-10, 10);
+                    GL.Vertex2(-_size, -_size);
+                    GL.Vertex2(_size, -_size);
+                    GL.Vertex2(_size, _size);
+                    GL.Vertex2(-_size, _size);
                 }
                 GL.End();
             }
             GL.PopMatrix();
+        }
+
+        public void SetTarget(House house)
+        {
+            Target = house;
+            house.BeingVisisted = true;
         }
     }
 }
