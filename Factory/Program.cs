@@ -12,7 +12,7 @@ namespace Factory
     {
         static void Main(string[] args)
         {
-            ICarFactory factory = new VolvoFactory();
+            ICarFactory factory = new SaabFactory();
 
             ICar car = factory.BuildCar();
             Console.WriteLine(car.GetInfo());
