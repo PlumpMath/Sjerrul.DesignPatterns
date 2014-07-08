@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sjerrul.DesignPatterns.Comm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sjerrul.DesignPatterns.CommandWithInterfaces", "Sjerrul.DesignPatterns.CommandWithInterfaces\Sjerrul.DesignPatterns.CommandWithInterfaces.csproj", "{F50F72DD-BC50-4A1E-BD9E-30AC832F4782}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sjerrul.DesignPatterns.Visitor", "Sjerrul.DesignPatterns.Visitor\Sjerrul.DesignPatterns.Visitor.csproj", "{660274D2-080A-4ED4-99B2-027432395868}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{F50F72DD-BC50-4A1E-BD9E-30AC832F4782}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F50F72DD-BC50-4A1E-BD9E-30AC832F4782}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F50F72DD-BC50-4A1E-BD9E-30AC832F4782}.Release|Any CPU.Build.0 = Release|Any CPU
+		{660274D2-080A-4ED4-99B2-027432395868}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{660274D2-080A-4ED4-99B2-027432395868}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{660274D2-080A-4ED4-99B2-027432395868}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{660274D2-080A-4ED4-99B2-027432395868}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
