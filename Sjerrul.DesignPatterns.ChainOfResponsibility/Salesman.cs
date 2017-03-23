@@ -69,7 +69,7 @@ namespace Sjerrul.OpenTk.Cube
         {
             GL.PushMatrix();
             {
-                GL.Translate(X, Y, 0);
+                GL.Translate(X-10, Y-10, 0);
                 // GL.Rotate(angle, 0, 0, 1);
                 GL.Color4(Color.Blue);
                 GL.Begin(PrimitiveType.Quads);
@@ -85,7 +85,7 @@ namespace Sjerrul.OpenTk.Cube
 
             GL.PushMatrix();
             {
-                GL.Translate(X, Y, 0);
+                GL.Translate(X - 10, Y - 10, 0);
                 GL.Color4(Color.Black);
                 GL.Begin(PrimitiveType.LineLoop);
                 {
@@ -102,6 +102,12 @@ namespace Sjerrul.OpenTk.Cube
         public void SetTarget(House house)
         {
             Target = house;
+
+            if (Target == null)
+            {
+                return;
+            }
+
             house.BeingVisisted = true;
         }
     }

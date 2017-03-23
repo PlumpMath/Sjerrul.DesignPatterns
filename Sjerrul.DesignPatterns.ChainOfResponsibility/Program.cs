@@ -27,7 +27,7 @@ namespace Sjerrul.DesignPatterns.ChainOfResponsibility
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    House house = new House(i , j, 5 + random.Next(3));
+                    House house = new House(i , j, 3 + random.Next(3));
                     houses.Add(house);
                 }
                 
@@ -37,7 +37,7 @@ namespace Sjerrul.DesignPatterns.ChainOfResponsibility
             salesman.SetTarget(GetNextHouse());
             salesmen.Add(salesman);
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Salesman next = new Salesman();
                 next.SetTarget(GetNextHouse());
